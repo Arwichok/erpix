@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@source "../src/app/templates/**/*.html.j2";
+
+
+@layer components {
+
+}

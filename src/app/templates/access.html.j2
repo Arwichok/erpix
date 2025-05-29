@@ -1,0 +1,42 @@
+{% extends "_.html.j2" %}
+
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<main>
+
+    <section hx-target="this">
+
+    {% if request.url.path == "/signup" %}
+
+        {% block signup %}
+        <form action="/signup" method="post">
+            <h2>Sign Up</h2>
+            <input type="text" name="name" placeholder="Name">
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Sign Up</button>
+        </form>
+        <a hx-get="/login" href="/login">Login</a>
+
+        {% endblock signup %}
+
+    {% elif request.url.path == "/login" %}
+
+        {% block login %}
+
+        <form action="/login" method="post">
+            <h2>Login</h2>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <a hx-get="/signup" href="/signup">Sign Up</a>
+
+        {% endblock login %}
+
+    {% endif %}
+    </section>
+
+</main>{% endblock content %}

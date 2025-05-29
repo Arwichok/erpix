@@ -1,0 +1,25 @@
+{
+  "name": "litex",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "vite",
+    "watch": "vite build --watch",
+    "build": "vite build"
+  },
+  "author": "Arwichok",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.6",
+    "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.7",
+    "@tailwindcss/vite": "^4.1.6",
+    "htmx-ext-head-support": "^2.0.4",
+    "htmx.org": "^1.9.12",
+    "sortablejs": "^1.15.6"
+  }
+}

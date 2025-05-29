@@ -1,0 +1,35 @@
+[project]
+name = "erpix"
+version = "0.0.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiosqlite>=0.21.0",
+    "alembic>=1.14.1",
+    "asyncpg>=0.30.0",
+    "bcrypt>=4.3.0",
+    "environs>=14.1.1",
+    "jinja2-fragments>=1.8.0",
+    "litestar[standard,brotli,cryptography,sqlalchemy]>=2.15.1",
+    "msgspec>=0.19.0",
+    "litestar-users>=1.7.0",
+    "litestar-browser-reload>=0.3.0",
+    "uuid-utils>=0.10.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx-sse>=0.4.0",
+    "pytest>=8.3.5",
+    "pytest-asyncio>=0.25.3",
+    "ruff>=0.11.2",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+
+[tool.ruff]
+line-length = 79
