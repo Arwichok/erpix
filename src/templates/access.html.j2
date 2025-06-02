@@ -4,21 +4,23 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<main>
-
-    <section hx-target="this">
+<main class="min-h-screen flex items-center justify-center bg-gray-100">
+    <section hx-target="this" class="w-full max-w-md p-6 bg-white rounded-2xl shadow-xl">
 
     {% if request.url.path == "/signup" %}
 
         {% block signup %}
-        <form action="/signup" method="post">
+        <form action="/signup" method="post" class="space-y-4">
             <h2>Sign Up</h2>
             <input type="text" name="name" placeholder="Name">
             <input type="email" name="email" placeholder="Email">
             <input type="password" name="password" placeholder="Password">
             <button type="submit">Sign Up</button>
+            <p>
+                <a hx-get="/login" href="/login">Login</a>
+            </p>
         </form>
-        <a hx-get="/login" href="/login">Login</a>
+        
 
         {% endblock signup %}
 
@@ -26,13 +28,15 @@
 
         {% block login %}
 
-        <form action="/login" method="post">
+        <form action="/login" method="post"  class="space-y-4">
             <h2>Login</h2>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
+            <p>
+                <a hx-get="/signup" href="/signup">Sign Up</a>
+            </p>
         </form>
-        <a hx-get="/signup" href="/signup">Sign Up</a>
 
         {% endblock login %}
 
