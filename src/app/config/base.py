@@ -26,7 +26,7 @@ def env(type: Type | str, name: str, default: Any = ..., **kwargs):
 class AppSettings:
     DEBUG: bool = env(bool, "DEBUG", False)
     PUBLIC_DIR: Path = PROJECT_DIR / "public"
-    TEMPLATES_DIR = APP_DIR / "templates"
+    TEMPLATES_DIR = SRC_DIR / "templates"
 
 
 @dataclass
