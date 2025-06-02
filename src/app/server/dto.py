@@ -1,6 +1,8 @@
+from dataclasses import dataclass
 from litestar.plugins.sqlalchemy import SQLAlchemyDTO, SQLAlchemyDTOConfig
 
 from app.database import models as m
+
 
 
 

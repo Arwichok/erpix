@@ -11,6 +11,7 @@ from app.database.services import UsersService
 from app.lib.types import URLEncoded
 from app.lib.xrequest import XRequest
 from app.server import dto
+from .payload import UserCreatePayload
 
 
 async def retrieve_user_handler(
@@ -54,8 +55,6 @@ class AccessController(Controller):
         request: XRequest,
         users_service: UsersService,
     ) -> Template | Redirect:
-        pprint(data.to_dict())
-        
         
         return request.template("access.html.j2", block_name="signup")
         
