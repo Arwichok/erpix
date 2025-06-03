@@ -4,43 +4,69 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
+<main class="min-h-screen flex items-center justify-center dark:bg-gray-800">
+  <section class="w-full max-w-md p-6 bg-white rounded-2xl shadow-xl dark:bg-gray-500">
+    <form hx-post="{{ request.url.path }}" class="flex flex-col space-y-4">
+
+      {% block name %}
+      <label for="name">
+        <span>Name</span>
+        <input type="text" name="name" placeholder="Name" id="name">
+      </label>
+      {% endblock name %}
+
+      <button type="submit">Submit</button>
+    </form>
+  </section>
+</main>
+{% endblock content %}
+
+
+{#
+{% block content %}
 <main class="min-h-screen flex items-center justify-center bg-gray-100">
-    <section hx-target="this" class="w-full max-w-md p-6 bg-white rounded-2xl shadow-xl">
+  <section hx-target="this" class="w-full max-w-md p-6 bg-white rounded-2xl shadow-xl">
 
     {% if request.url.path == "/signup" %}
 
-        {% block signup %}
-        <form action="/signup" method="post" class="space-y-4">
-            <h2>Sign Up</h2>
-            <input type="text" name="name" placeholder="Name">
-            <input type="email" name="email" placeholder="Email">
-            <input type="password" name="password" placeholder="Password">
-            <button type="submit">Sign Up</button>
-            <p>
-                <a hx-get="/login" href="/login">Login</a>
-            </p>
-        </form>
-        
-
-        {% endblock signup %}
+    {% block signup %}
+    <form hx-post="/signup" method="post" class="space-y-4">
+      <h2>Sign Up</h2>
+      <label for="name">
+        <span>Name</span>
+        <input type="text" name="name" placeholder="Name" id="name">
+      </label>
+      <label for="email">
+        <span>Email</span>
+        <input type="email" name="email" placeholder="Email" id="email">
+      </label>
+      <label for="password">
+        <span>Password</span>
+        <input type="password" name="password" placeholder="Password" id="password">
+      </label>
+      <button type="submit">Sign Up</button>
+      <p>
+        <a hx-get="/login" href="/login">Login</a>
+      </p>
+    </form>
+    {% endblock signup %}
 
     {% elif request.url.path == "/login" %}
 
-        {% block login %}
-
-        <form action="/login" method="post"  class="space-y-4">
-            <h2>Login</h2>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-            <p>
-                <a hx-get="/signup" href="/signup">Sign Up</a>
-            </p>
-        </form>
-
-        {% endblock login %}
+    {% block login %}
+    <form action="/login" method="post" class="space-y-4">
+      <h2>Login</h2>
+      <input type="email" name="email" placeholder="Email" id="email">
+      <input type="password" name="password" placeholder="Password" id="password">
+      <button type="submit">Login</button>
+      <p>
+        <a hx-get="/signup" href="/signup">Sign Up</a>
+      </p>
+    </form>
+    {% endblock login %}
 
     {% endif %}
-    </section>
+  </section>
 
 </main>{% endblock content %}
+#}

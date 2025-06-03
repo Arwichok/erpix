@@ -1,10 +1,12 @@
 from litestar import (
     Controller,
+    Router,
     get,
 )
 from litestar.response import Template
 
 from app.lib.xrequest import XRequest
+
 
 
 class BaseController(Controller):

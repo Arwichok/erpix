@@ -1,9 +1,11 @@
 from pprint import pprint
 from typing import Any
 
-from litestar import Controller, get, post
+from litestar import Controller, MediaType, Request, Response, get, post
 from litestar.connection import ASGIConnection
+from litestar.plugins.htmx import HTMXRequest
 from litestar.response import Redirect, Template
+from jinja2_fragments.litestar import HTMXBlockTemplate
 
 from app.config.app import alchemy
 from app.database import models as m
@@ -12,6 +14,7 @@ from app.lib.types import URLEncoded
 from app.lib.xrequest import XRequest
 from app.server import dto
 from .payload import UserCreatePayload
+from litestar.exceptions import ValidationException
 
 
 async def retrieve_user_handler(
@@ -23,7 +26,68 @@ async def retrieve_user_handler(
     return user
 
 
+def validation_exception(request: Request, exc: ValidationException) -> Template | Response:
+    pprint(exc.extra)
+    
+    return Response(
+        media_type=MediaType.TEXT,
+        content=exc.detail
+    )
+    # extra = exc.extra
+    # if isinstance(extra, list):
+    #     extra = extra[0]
+    
+    # if isinstance(extra, dict):
+    #     return HTMXBlockTemplate(
+    #         template_name="access.html.j2",
+    #         block_name="exception",
+    #         context={
+    #             "extra": extra
+    #         },
+    #         re_target=f"#{extra['key']}",
+    #         re_swap="afterend",
+    #     )
+    # return Response(
+    #     media_type=MediaType.TEXT,
+    #     content=exc.detail
+    # )
+    
+    
+    # if isinstance(exc.extra, dict):
+    #     return HTMXBlockTemplate(
+    #         block_name="exception",
+    #         context={
+    #             "exc": exc
+    #         },
+    #         re_target=f"#{exc.extra["key"]}",
+    #         re_swap="afterend",
+    #     )
+    # return Response(
+    #     media_type=MediaType.TEXT,
+    #     content=exc.detail
+    # )
+    
+    # if exc.extra:
+    #     return request.template(
+    #         "access.html.j2", 
+    #         block_name="exception",
+    #         context={
+    #             "extra": exc.extra
+    #         },
+    #     )
+    # return Response(
+    #     media_type=MediaType.HTML,
+    #     content=exc.detail,
+    # )
+
+
 class AccessController(Controller):
+    
+    exception_handlers = {
+        ValidationException: validation_exception,
+    } # type: ignore
+
+
     @get("/login")
     async def get_login(self, request: XRequest) -> Template:
         return request.template(
@@ -48,13 +112,14 @@ class AccessController(Controller):
             "access.html.j2", push_url="/signup", block_name="signup"
         )
 
-    @post("/signup", dto=dto.UserCreate)
+    @post("/signup")
     async def post_signup(
         self,
-        data: URLEncoded[m.User],
+        data: URLEncoded[UserCreatePayload],
         request: XRequest,
         users_service: UsersService,
     ) -> Template | Redirect:
+        pprint(data)
         
         return request.template("access.html.j2", block_name="signup")
         

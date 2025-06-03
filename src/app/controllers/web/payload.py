@@ -1,16 +1,8 @@
 from dataclasses import dataclass
 from app.lib.wrong import Wrong
+from msgspec import Struct, Meta
+from typing import Annotated
 
 
-@dataclass
-class UserCreatePayload:
-    name: str | None = None
-    email: str | None = None
-    password: str | None = None
-
-    def wrong(self) -> Wrong:
-        _wrong = Wrong()
-        if not self.name:
-            _wrong.name = True
-
-        return _wrong
+class UserCreatePayload(Struct):
+    name: Annotated[str, Meta(min_length=2)]
