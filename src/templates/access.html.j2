@@ -1,22 +1,35 @@
 {% extends "_.html.j2" %}
 
-
+{# TODO: set variable of inputs and link if singup or login #}
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
 <main class="min-h-screen flex items-center justify-center dark:bg-gray-800">
   <section class="w-full max-w-md p-6 bg-white rounded-2xl shadow-xl dark:bg-gray-500">
-    <form hx-post="{{ request.url.path }}" class="flex flex-col space-y-4">
 
-      {% block name %}
-      <label for="name">
-        <span>Name</span>
-        <input type="text" name="name" placeholder="Name" id="name">
+    {% block form %}
+    
+    <form hx-post="{{ request.url.path }}" class="flex flex-col space-y-4" hx-target="this">
+
+    {% for type, name, placeholder in [
+      ("text", "name", "Name")
+    ]%}
+
+      <label>
+        <input type="{{ type }}" name="{{ name }}" placeholder="{{ placeholder }}">
       </label>
-      {% endblock name %}
 
+    {% endfor %}
       <button type="submit">Submit</button>
+      <p>
+      {% if request.url.path == "/signup"%}
+        <a href="/login">Login</a>
+      {% elif request.url.path == "/login"%}
+        <a href="/signup">Signup</a>
+      {% endif %}
+      </p>
     </form>
+    {% endblock form %}
   </section>
 </main>
 {% endblock content %}
