@@ -1,31 +1,4 @@
 @import "tailwindcss";
-
-/* @layer components {
-  form label {
-    @apply block text-gray-600 font-semibold mb-2;
-  }
-
-  form input {
-    @apply w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition;
-  }
-
-  form input[aria-invalid="true"] {
-    @apply border-red-500;
-  }
-
-  form button {
-    @apply w-full py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition;
-  }
-
-  form h2 {
-    @apply text-2xl font-bold text-center mb-4;
-  }
-
-  form p {
-    @apply mt-4 text-center text-sm text-gray-600;
-  }
-
-  a {
-    @apply text-blue-600 hover:underline ml-1;
-  }
-} */
+@plugin "daisyui"{
+    themes: light --default, dark --prefersdark, business;
+}
