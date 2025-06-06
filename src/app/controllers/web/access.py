@@ -26,9 +26,11 @@ async def retrieve_user_handler(
     return user
 
 
-def validation_exception(request: Request, exc: ValidationException) -> Template | Response:
+def validation_exception(request: XRequest, exc: ValidationException) -> Template | Response:
     pprint(exc.extra)
     
+    if request.htmx:
+        ...
     return Response(
         media_type=MediaType.TEXT,
         content=exc.detail
