@@ -16,6 +16,7 @@ dependencies = [
     "litestar-users>=1.7.0",
     "litestar-browser-reload>=0.3.0",
     "uuid-utils>=0.10.0",
+    "mypy>=1.16.0",
 ]
 
 [dependency-groups]

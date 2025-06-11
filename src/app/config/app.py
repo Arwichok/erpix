@@ -3,11 +3,11 @@ from litestar.plugins.sqlalchemy import (
     AlembicAsyncConfig,
     AsyncSessionConfig,
     SQLAlchemyAsyncConfig,
+    orm_registry,
 )
 from litestar.template import TemplateConfig
 from litestar.contrib.jinja import JinjaTemplateEngine
 from .base import get_settings
-
 
 settings = get_settings()
 
@@ -21,10 +21,11 @@ alembic = AlembicAsyncConfig(
     script_config=settings.db.MIGRATION_CONFIG,
 )
 alchemy = SQLAlchemyAsyncConfig(
-    connection_string=settings.db.url,
+    connection_string=settings.db.URL,
     alembic_config=alembic,
     session_config=AsyncSessionConfig(expire_on_commit=False),
     create_all=settings.app.DEBUG,
+    metadata=orm_registry.metadata,
 )
 
 compression = CompressionConfig(backend="brotli")

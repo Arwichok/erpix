@@ -5,12 +5,7 @@ from typing import Any, Type
 
 from environs import Env
 
-
-APP_DIR = Path(__file__).parent.parent
-SRC_DIR = APP_DIR.parent
-PROJECT_DIR = SRC_DIR.parent
-
-
+BASE_DIR = Path(__file__).parent.parent.parent.parent
 _env = Env()
 
 
@@ -25,16 +20,16 @@ def env(type: Type | str, name: str, default: Any = ..., **kwargs):
 @dataclass
 class AppSettings:
     DEBUG: bool = env(bool, "DEBUG", False)
-    PUBLIC_DIR: Path = PROJECT_DIR / "public"
-    TEMPLATES_DIR = SRC_DIR / "templates"
+    PUBLIC_DIR: Path = BASE_DIR / "public"
+    TEMPLATES_DIR: Path = BASE_DIR / "src/app/presentation/web/templates"
 
 
 @dataclass
 class DatabaseSettings:
-    url: str = env(str, "DATABASE_URL", "sqlite+aiosqlite:///db.sqlite3")
-    echo: bool = env(bool, "ECHO", False)
-    MIGRATION_DIR: str = str(APP_DIR / "database/migrations")
-    MIGRATION_CONFIG: str = str(APP_DIR / "database/migrations/alembic.ini")
+    URL: str = env(str, "DATABASE_URL", "sqlite+aiosqlite:///db.sqlite3")
+    ECHO: bool = env(bool, "DATABASE_ECHO", False)
+    MIGRATION_DIR: str = str(BASE_DIR / "src/app/infrastructure/database/migrations")
+    MIGRATION_CONFIG: str = str(BASE_DIR / "src/app/infrastructure/database/migrations/alembic.ini")
 
 
 @dataclass

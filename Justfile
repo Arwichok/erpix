@@ -19,9 +19,9 @@ css:
     npx @tailwindcss/cli -i {{TAILWIND_INPUT}} -o {{TAILWIND_OUTPUT}} --watch
 
 dev:
-    DEBUG=True uv run litestar run -r
+    uv run litestar run -r -R src
 
-serve:
+run:
     uv run litestar run
 
 build:
@@ -30,3 +30,19 @@ build:
 
 dev-all:
     npx concurrently "just css" "just dev"
+
+
+db:
+    uv run litestar database
+
+db-up:
+    uv run litestar database upgrade
+
+db-down:
+    uv run litestar database downgrade
+
+db-drop:
+    uv run litestar database drop-all
+
+db-new:
+    uv run litestar database make-migrations

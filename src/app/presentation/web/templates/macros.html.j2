@@ -1,0 +1,6 @@
+{% macro input(name, type, placeholder, error) %}
+<input type="{{ type }}" name="{{ name }}" class="input" placeholder="{{ placeholder }}" required>
+{% if error %}
+<p class="text-error">{{ error }}</p>
+{% endif %}
+{% endmacro %}

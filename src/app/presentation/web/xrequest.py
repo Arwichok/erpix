@@ -6,6 +6,7 @@ from jinja2_fragments.litestar import HTMXBlockTemplate
 from litestar.plugins.htmx import HTMXRequest
 from litestar.status_codes import HTTP_200_OK
 
+
 if TYPE_CHECKING:
     from litestar_htmx.types import (
         EventAfterType,
@@ -43,6 +44,8 @@ class XRequest(HTMXRequest):
     ) -> Template:
         if context is None:
             context = {}
+        if "exc" not in context:
+            context["exc"] = {}
         if not self.htmx:
             block_name = None
             block_names = None

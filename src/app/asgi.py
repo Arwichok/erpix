@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -8,6 +9,6 @@ if TYPE_CHECKING:
 
 def create_app() -> Litestar:
     from litestar import Litestar
-    from app.server.core import ApplicationCore
+    from app.application.core import ApplicationCore
 
     return Litestar(plugins=[ApplicationCore()])
