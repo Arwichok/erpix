@@ -17,5 +17,13 @@ class UsersAPIController(Controller):
     }
 
     @get("/users")
-    async def get_users(self, user_service: UserService) -> Sequence[m.User]:
-        return await user_service.list()
+    async def get_users(self, user_service: UserService) -> Sequence[dict]:
+        return [
+            {
+                "id": u.id,
+                "email": u.email,
+                "role": u.role.name,
+                "created_at": u.created_at,
+            }
+            for u in await user_service.list()
+        ]

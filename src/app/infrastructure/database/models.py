@@ -14,7 +14,7 @@ class User(base.UUIDv7AuditBase):
     
     email: Mapped[str] = mapped_column(nullable=True, unique=True)
     password: Mapped[str] = mapped_column(nullable=False)
-    role: Mapped[Role] = relationship("Role", back_populates="users")
+    role: Mapped[Role] = relationship(lazy="joined", innerjoin=True, viewonly=True)
     role_id: Mapped[UUID] = mapped_column(ForeignKey("roles.id"), nullable=False)
 
 
@@ -23,5 +23,5 @@ class Role(base.UUIDv7AuditBase):
     
     name: Mapped[str] = mapped_column(nullable=False, unique=True)
     description: Mapped[str] = mapped_column(nullable=False)
-    users: Mapped[list[User]] = relationship(back_populates="role")
+    users: Mapped[list[User]] = relationship(back_populates="role", lazy="selectin")
     

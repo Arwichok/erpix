@@ -14,8 +14,8 @@
   <form hx-post="/login">
   <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
     <legend class="fieldset-legend">Login</legend>
-
-    <input type="email" name="email" class="input validator" placeholder="Email" required autofocus minlength="3" maxlength="320">
+    
+    <input type="email" name="email" class="input validator" placeholder="Email" required minlength="3" maxlength="320">
     <div class="validator-hint hidden">Enter valid email</div>
 
     <input type="password" class="input validator" name="password" placeholder="Password">
@@ -35,7 +35,7 @@
   <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
     <legend class="fieldset-legend">Signup</legend>
 
-    <input type="email" name="email" class="input validator" placeholder="Email" id="email" required autofocus minlength="3" maxlength="320">
+    <input type="email" name="email" class="input validator" placeholder="Email" id="email" required minlength="3" maxlength="320">
     <div class="validator-hint hidden">Enter valid email</div>
 
     <input type="password" name="password" class="input validator" placeholder="Password" id="password" required minlength="8" maxlength="255">

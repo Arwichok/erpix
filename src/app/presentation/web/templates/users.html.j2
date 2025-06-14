@@ -2,10 +2,29 @@
 
 
 {% block content %}
-    <h1>Users</h1>
-    <ul>
+<main class="min-h-screen flex items-center justify-center">
+<div class="overflow-x-auto"></div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for user in users %}
-            <li><a href="/users/{{ user.id }}">{{ user.name }}</a></li>
+        <tr>
+            <td>{{ user.id.hex[0:6] }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role.name }}</td>
+            <td>{{ user.created_at }}</td>
+        </tr>
         {% endfor %}
-    </ul>
+
+    </tbody>
+</table>
+</div>
+</main>
 {% endblock content %}

@@ -1,6 +1,6 @@
 from pprint import pprint
 from litestar import Controller, MediaType, Response, get, post
-from litestar.exceptions import ValidationException
+from litestar.exceptions import NotAuthorizedException, ValidationException
 from litestar.plugins.htmx import HTMXRequest
 from msgspec import ValidationError
 from jinja2_fragments.litestar import HTMXBlockTemplate
@@ -15,15 +15,9 @@ from app.presentation.web.types import URLEncoded
 from app.presentation.web.xrequest import XRequest
 from litestar.response import Redirect, Template
 
-
-def handle_validation(request: HTMXRequest, exc: ValidationException) -> Template:
-    pprint(exc.extra)
-    return HTMXBlockTemplate(
-        template_name="access.html.j2",
-        block_name="content",
-        context={"exc": {"detail": exc.detail, "extra": {d["key"]: d for d in exc.extra}}},
-    )
-
+def handle_not_authorized(request: XRequest, exc: NotAuthorizedException) -> Template:
+    return request.template("access.html.j2",)
+    
 
 class AccessController(Controller):
     dependencies = {
