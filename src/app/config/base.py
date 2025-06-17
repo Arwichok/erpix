@@ -36,6 +36,7 @@ class DatabaseSettings:
 class Settings:
     app: AppSettings = field(default_factory=AppSettings)
     db: DatabaseSettings = field(default_factory=DatabaseSettings)
+    BASE_DIR: Path = BASE_DIR
 
 
 @lru_cache(maxsize=1, typed=True)
