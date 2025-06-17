@@ -28,6 +28,9 @@ dev = [
     "ruff>=0.11.2",
 ]
 
+[project.scripts]
+app = "app.__main__:run_cli"
+
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
