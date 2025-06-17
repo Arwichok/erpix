@@ -1,0 +1,49 @@
+{% include "_.html.j2" %}
+
+{% block content %}
+<main class="drawer md:drawer-open">
+    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+
+    <section class="drawer-content">
+        <nav class="navbar bg-base-100 shadow-sm">
+            <div class="flex-1">
+                <a href="/" class="btn btn-ghost normal-case text-xl">Home</a>
+            </div>
+            <div class="flex-none">
+                <div class="dropdown dropdown-end">
+                    <div class="btn btn-ghost btn-circle avatar" role="button" tabindex="0">
+                        <div class="w-10 rounded-full">
+                            {{ heroicon_solid("user-circle", size=40) }}
+                        </div>
+                    </div>
+                    <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                        <li>
+                            <a href="/me">Profile</a>
+                        </li>
+                        <li>
+                            <a href="/logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        {# <label for="my-drawer" class="btn btn-primary drawer-button lg:hidden">Open drawer</label> #}
+    </section>
+    <section class="drawer-side">
+        {# <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label> #}
+        <menu class="menu bg-base-200 min-h-full">
+            <li>
+                <a>
+                    {{ heroicon_solid("academic-cap", size=40) }}
+                </a>
+            </li>
+            <li>
+                <a href="/users">
+                    {{ heroicon_solid("users", size=40) }}
+                </a>
+            </li>
+        </menu>
+    </section>
+</main>
+{% endblock %}

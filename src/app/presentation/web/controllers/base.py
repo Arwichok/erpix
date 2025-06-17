@@ -18,3 +18,7 @@ class BaseController(Controller):
     @get("/favicon.ico", exclude_from_auth=True)
     async def favicon(self, request: XRequest) -> Redirect:
         return Redirect("/static/favicon.ico")
+
+    @get("/dashboard", exclude_from_auth=True)
+    async def dashboard(self, request: XRequest) -> Template:
+        return request.template("dashboard.html.j2")

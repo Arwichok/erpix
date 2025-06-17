@@ -1,4 +1,12 @@
+from heroicons.jinja import (
+    heroicon_micro,
+    heroicon_mini,
+    heroicon_outline,
+    heroicon_solid,
+)
+from jinja2 import Environment, FileSystemLoader
 from litestar.config.compression import CompressionConfig
+from litestar.contrib.jinja import JinjaTemplateEngine
 from litestar.plugins.sqlalchemy import (
     AlembicAsyncConfig,
     AsyncSessionConfig,
@@ -6,14 +14,26 @@ from litestar.plugins.sqlalchemy import (
     orm_registry,
 )
 from litestar.template import TemplateConfig
-from litestar.contrib.jinja import JinjaTemplateEngine
+
 from .base import get_settings
 
 settings = get_settings()
 
+env = Environment(
+    autoescape=True,
+    loader=FileSystemLoader(settings.app.TEMPLATES_DIR),
+)
+env.globals.update(
+    {
+        "heroicon_micro": heroicon_micro,
+        "heroicon_mini": heroicon_mini,
+        "heroicon_outline": heroicon_outline,
+        "heroicon_solid": heroicon_solid,
+    }
+)
 
 template = TemplateConfig(
-    directory=settings.app.TEMPLATES_DIR, engine=JinjaTemplateEngine
+    instance=JinjaTemplateEngine.from_environment(env),
 )
 
 alembic = AlembicAsyncConfig(
