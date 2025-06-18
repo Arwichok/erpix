@@ -1,9 +1,6 @@
-{% include "_.html.j2" %}
+{% extends "dashboard.html.j2" %}
 
-
-{% block content %}
-<main class="min-h-screen flex items-center justify-center">
-<div class="overflow-x-auto"></div>
+{% block dashboard_content %}
 <table class="table">
     <thead>
         <tr>
@@ -22,9 +19,6 @@
             <td>{{ user.created_at }}</td>
         </tr>
         {% endfor %}
-
     </tbody>
 </table>
-</div>
-</main>
-{% endblock content %}
+{% endblock dashboard_content %}

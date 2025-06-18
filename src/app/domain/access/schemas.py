@@ -11,3 +11,8 @@ class UserPayload(Struct):
         max_length=320
     )]
     password: RawPassword
+
+
+class Role(Struct):
+    name: str
+    description: str

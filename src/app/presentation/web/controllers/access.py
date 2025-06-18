@@ -1,36 +1,46 @@
 from pprint import pprint
-from litestar import Controller, MediaType, Response, get, post
-from litestar.exceptions import NotAuthorizedException, ValidationException
-from litestar.plugins.htmx import HTMXRequest
-from msgspec import ValidationError
-from jinja2_fragments.litestar import HTMXBlockTemplate
-from app.domain.user.dto import UserPayload
-from app.infrastructure.database.services.user import UserService
 
 from advanced_alchemy.extensions.litestar.providers import (
     create_service_dependencies,
 )
+from jinja2_fragments.litestar import HTMXBlockTemplate
+from litestar import Controller, MediaType, Response, get, post
+from litestar.exceptions import NotAuthorizedException, ValidationException
+from litestar.plugins.htmx import HTMXRequest
+from litestar.response import Redirect, Template
+from msgspec import ValidationError
 
+from app.domain.access.services import RoleService, UserService
+from app.domain.access.schemas import UserPayload
 from app.presentation.web.types import URLEncoded
 from app.presentation.web.xrequest import XRequest
-from litestar.response import Redirect, Template
 
-def handle_not_authorized(request: XRequest, exc: NotAuthorizedException) -> Template:
-    return request.template("access.html.j2",)
-    
+
+def handle_not_authorized(
+    request: XRequest, exc: NotAuthorizedException
+) -> Template:
+    return request.template(
+        "access.html.j2",
+    )
+
 
 class AccessController(Controller):
     dependencies = {
-        **create_service_dependencies(UserService, "user_service")
+        **create_service_dependencies(UserService, "user_service"),
+        **create_service_dependencies(RoleService, "role_service"),
     }
 
     @get("/login")
     async def get_login(self, request: XRequest) -> Template:
-        return request.template("access.html.j2", block_name="content", push_url="/login")
+        return request.template(
+            "access.html.j2", block_name="content", push_url="/login"
+        )
 
     @get("/signup")
     async def get_signup(self, request: XRequest) -> Template:
-        return request.template("access.html.j2", block_name="content", push_url="/signup")
+        return request.template(
+            "access.html.j2", block_name="content", push_url="/signup"
+        )
 
     @post("/login")
     async def post_login(
@@ -46,7 +56,7 @@ class AccessController(Controller):
     @get("/me")
     async def get_me(self, request: XRequest) -> Template:
         return request.template("me.html.j2", push_url="/me")
-    
+
     @get("/logout")
     async def get_logout(self, request: XRequest) -> Response:
         request.clear_session()
@@ -59,7 +69,6 @@ class AccessController(Controller):
         data: URLEncoded[UserPayload],
         user_service: UserService,
     ) -> Response:
-        user = await user_service.signup(data)
+        user = await user_service.signup(data, role_id=2)
         request.set_session({"user_id": user.id})
         return request.template("me.html.j2", push_url="/me")
-    

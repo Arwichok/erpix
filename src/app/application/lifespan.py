@@ -10,13 +10,11 @@ if TYPE_CHECKING:
 
 @asynccontextmanager
 async def database_setup(app: Litestar):
-    from sqlalchemy import Identity
 
     from app.config.app import alchemy
-    from app.domain.user.dto import UserPayload
+    from app.domain.access.crypt import hash_password
     from app.infrastructure.database import models as m
-    from app.infrastructure.database.services.role import RoleService
-    from app.infrastructure.database.services.user import UserService
+    from app.domain.access.services import RoleService, UserService
     from advanced_alchemy.exceptions import DuplicateKeyError
 
     async with alchemy.get_session() as session:
@@ -25,16 +23,16 @@ async def database_setup(app: Litestar):
         try:
             await role_service.create_many(
                 [
-                    m.Role(name="guest", description="Guest role"),
-                    m.Role(name="admin", description="Admin role"),
+                    m.Role(id=1, name="admin", description="Admin role"),
+                    m.Role(id=2, name="guest", description="Guest role"),
                 ],
                 auto_commit=True,
             )
             await user_service.create(
                 m.User(
                     email="admin@test",
-                    password=user_service.hash_password("invarost"),
-                    role_id=(await role_service.get_one(name="admin")).id,
+                    password=hash_password("invarost"),
+                    role_id=1
                 ),
                 auto_commit=True,
             )

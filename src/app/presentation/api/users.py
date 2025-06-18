@@ -1,7 +1,7 @@
 from typing import Sequence
-from litestar import Controller, get, post
+from litestar import Controller, get
 
-from app.infrastructure.database.services.user import UserService
+from app.domain.access.services import UserService
 
 from advanced_alchemy.extensions.litestar.providers import (
     create_service_dependencies,
