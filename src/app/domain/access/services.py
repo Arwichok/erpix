@@ -12,12 +12,11 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
 
     repository_type = Repository
     
-    async def signup(self, payload: UserPayload, role_id: int) -> m.User:
+    async def signup(self, payload: UserPayload) -> m.User:
         return await super().create(
-            m.User(
+            dict(
                 email=payload.email,
                 password=hash_password(payload.password),
-                role_id=role_id,
             ),
             auto_commit=True,
         )
@@ -30,12 +29,3 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
             return user
         
         raise NotAuthorizedException
-
-
-
-class RoleService(service.SQLAlchemyAsyncRepositoryService[m.Role]):
-    class Repository(repository.SQLAlchemyAsyncRepository[m.Role]):
-        model_type = m.Role
-        
-    repository_type = Repository
-    

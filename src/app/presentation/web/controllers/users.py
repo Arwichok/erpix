@@ -1,5 +1,5 @@
-from litestar import Controller, MediaType, Request, Response, get, post
-from litestar.exceptions import NotAuthorizedException, NotFoundException
+from litestar import Controller, Request, get
+from litestar.exceptions import NotAuthorizedException
 from litestar.response import Template
 
 from app.domain.access.services import UserService

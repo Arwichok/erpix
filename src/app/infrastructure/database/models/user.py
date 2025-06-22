@@ -1,14 +1,8 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-from uuid import UUID
 
 from advanced_alchemy import base
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-
-if TYPE_CHECKING:
-    from .role import Role
+from sqlalchemy.orm import Mapped, mapped_column
 
 
 class User(base.UUIDv7AuditBase):
@@ -16,9 +10,6 @@ class User(base.UUIDv7AuditBase):
 
     email: Mapped[str] = mapped_column(nullable=True, unique=True)
     password: Mapped[str] = mapped_column(nullable=False)
-    role: Mapped[Role] = relationship(
-        lazy="joined", innerjoin=True, viewonly=True
-    )
-    role_id: Mapped[UUID] = mapped_column(
-        ForeignKey("roles.id"), nullable=False
-    )
+    is_superuser: Mapped[bool] = mapped_column(nullable=False, default=False)
+    is_active: Mapped[bool] = mapped_column(nullable=False, default=True)
+    is_verified: Mapped[bool] = mapped_column(nullable=False, default=False)

@@ -44,7 +44,6 @@ alchemy = SQLAlchemyAsyncConfig(
     connection_string=settings.db.URL,
     alembic_config=alembic,
     session_config=AsyncSessionConfig(expire_on_commit=False),
-    create_all=settings.app.DEBUG,
     metadata=orm_registry.metadata,
 )
 

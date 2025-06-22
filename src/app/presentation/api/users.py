@@ -8,7 +8,6 @@ from advanced_alchemy.extensions.litestar.providers import (
 )
 
 
-from app.infrastructure.database import models as m
 
 
 class UsersAPIController(Controller):
@@ -22,7 +21,6 @@ class UsersAPIController(Controller):
             {
                 "id": u.id,
                 "email": u.email,
-                "role": u.role.name,
                 "created_at": u.created_at,
             }
             for u in await user_service.list()

@@ -1,0 +1,17 @@
+
+<label>
+<input
+    type="email" 
+    name="email" 
+    class="input" 
+    placeholder="Email" 
+    minlength="3" 
+    maxlength="320" 
+    id="email"
+    value="{{ request.form.email or '' }}"
+    aria-invalid="{{ (error is defined) | lower }}"
+>
+{% if error is defined %}
+<div class="text-error">{{ error }}</div>
+{% endif %}
+</label>
