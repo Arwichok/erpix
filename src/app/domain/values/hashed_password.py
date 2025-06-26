@@ -1,0 +1,1 @@
+HashedPassword = bytes

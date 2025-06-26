@@ -1,9 +1,10 @@
+from abc import abstractmethod
 from dataclasses import dataclass
 from datetime import datetime
 from uuid import UUID
 from litestar.plugins.sqlalchemy import SQLAlchemyDTO
 from msgspec import Struct, Meta
-from typing import Annotated
+from typing import Annotated, Protocol
 from app.infrastructure.database import models as m
 
 RawPassword = Annotated[str, Meta(min_length=8, max_length=255)]
