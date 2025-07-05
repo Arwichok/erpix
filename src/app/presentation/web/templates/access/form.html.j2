@@ -1,0 +1,41 @@
+{% extends "_.html.j2" %}
+
+
+{% block content %}
+
+{% if request.url.path.startswith("/login") %}
+    {% set title = "Login" %}
+    {% set action = "/login" %}
+    {% set button_text = "Login" %}
+    {% set link_href = "/signup" %}
+    {% set link_text = "Signup" %}
+{% elif request.url.path.startswith("/signup") %}
+    {% set title = "Signup" %}
+    {% set action = "/signup" %}
+    {% set button_text = "Signup" %}
+    {% set link_href = "/login" %}
+    {% set link_text = "Login" %}
+{% endif %}
+
+
+<main class="min-h-screen flex items-center justify-center" hx-target="this" hx-swap="outerHTML">
+<form action="{{ action }}" method="post">
+<title>{{ title }}</title>
+
+<fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+    <legend class="fieldset-legend">{{ title }}</legend>
+
+    {% block email %}
+        {% include "access/email.html.j2" %}
+    {% endblock email %}
+
+    {% block password %}
+        {% include "access/password.html.j2" %}
+    {% endblock password %}
+
+    <button class="btn btn-neutral mt-4" type="submit">{{ button_text }}</button>
+    <a hx-get="{{ link_href }}" class="link">{{ link_text }}</a>
+</fieldset>
+</form>
+</main>
+{% endblock content %}

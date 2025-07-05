@@ -1,17 +1,14 @@
 
-<label>
+<label id="email-label">
 <input
-    type="email" 
-    name="email" 
-    class="input" 
-    placeholder="Email" 
-    minlength="3" 
-    maxlength="320" 
+    type="text" 
+    name="email"
+    class="input validator" 
+    placeholder="Email"
     id="email"
-    value="{{ request.form.email or '' }}"
-    aria-invalid="{{ (error is defined) | lower }}"
+    aria-invalid="false"
+    hx-post="/validate"
+    hx-trigger="change"
 >
-{% if error is defined %}
-<div class="text-error">{{ error }}</div>
-{% endif %}
+{% include "access/exception.html.j2" %}
 </label>

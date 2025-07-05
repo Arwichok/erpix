@@ -1,5 +1,7 @@
-from msgspec import Meta
+from dataclasses import dataclass
+from msgspec import Meta, convert
 from typing import Annotated
+from litestar.params import Parameter
 
 
 Email = Annotated[str, Meta(

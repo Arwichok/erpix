@@ -4,13 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Title{% endblock title %}</title>
     <link href="/static/bundle.css" rel="stylesheet">
     <link rel="ortcut icon" href="/static/favicon.ico" type="image/x-icon">
-    {% block head %}{% endblock head %}
 </head>
 
-<body>
+<body hx-ext="head-support">
     {% block content %}{% endblock content %}
     {% if request.app.debug %}
     <script src="/__reload__/static/reload-listener.js" data-worker-script-path="/__reload__/static/reload-worker.js"
