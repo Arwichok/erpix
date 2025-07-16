@@ -1,0 +1,10 @@
+@base = http://localhost:8000/
+@email = admin@example.com
+
+
+
+### Login
+POST {{base}}/login
+Content-Type: application/x-www-form-urlencoded
+
+email=roma

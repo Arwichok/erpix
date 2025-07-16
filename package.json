@@ -21,6 +21,7 @@
     "@tailwindcss/vite": "^4.1.6",
     "htmx-ext-head-support": "^2.0.4",
     "htmx.org": "^1.9.12",
+    "idiomorph": "^0.7.3",
     "sortablejs": "^1.15.6"
   }
 }

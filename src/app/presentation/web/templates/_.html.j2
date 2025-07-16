@@ -8,7 +8,7 @@
     <link rel="ortcut icon" href="/static/favicon.ico" type="image/x-icon">
 </head>
 
-<body hx-ext="head-support">
+<body hx-ext="head-support, morph">
     {% block content %}{% endblock content %}
     {% if request.app.debug %}
     <script src="/__reload__/static/reload-listener.js" data-worker-script-path="/__reload__/static/reload-worker.js"

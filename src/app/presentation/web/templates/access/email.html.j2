@@ -1,14 +1,18 @@
 
-<label id="email-label">
+<label id="email-label" hx-target="this" hx-swap="morph:outerHTML">
 <input
-    type="text" 
-    name="email"
-    class="input validator" 
-    placeholder="Email"
     id="email"
-    aria-invalid="false"
-    hx-post="/validate"
-    hx-trigger="change"
+    type="email" 
+    name="email"
+    class="input"
+    placeholder="Email"
+    hx-post="/validate/email"
+    hx-params="email"
+    hx-trigger="change after:500ms" 
+    value="{{ email }}"
+    aria-invalid="{{ (error is defined) | lower }}"
+    hx-sync="closest form:abort"
+    required
 >
 {% include "access/exception.html.j2" %}
 </label>

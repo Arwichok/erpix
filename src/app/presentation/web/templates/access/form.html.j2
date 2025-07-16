@@ -19,7 +19,7 @@
 
 
 <main class="min-h-screen flex items-center justify-center" hx-target="this" hx-swap="outerHTML">
-<form action="{{ action }}" method="post">
+<form hx-post="{{ action }}" method="post">
 <title>{{ title }}</title>
 
 <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
@@ -29,9 +29,9 @@
         {% include "access/email.html.j2" %}
     {% endblock email %}
 
-    {% block password %}
+    {# {% block password %}
         {% include "access/password.html.j2" %}
-    {% endblock password %}
+    {% endblock password %} #}
 
     <button class="btn btn-neutral mt-4" type="submit">{{ button_text }}</button>
     <a hx-get="{{ link_href }}" class="link">{{ link_text }}</a>
